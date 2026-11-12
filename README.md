@@ -321,6 +321,9 @@ verdict is deferred (see Scope limits).
 ### Deferred and out of scope
 
 - QL005 (right abstraction): not decidable over the IR. Deferred.
+- QL004's per-action witness verdict (one witness per major action):
+  witness presence and dead-witness detection ship in v0.1.0; the
+  per-action mapping is deferred to v0.1.1 (see Scope limits).
 - QP004 (a `val` after the module's closing brace): needs a source
   text scan. Deferred to v1.1.
 - QP005-QP011: seven invocation, verify and environment properties,
