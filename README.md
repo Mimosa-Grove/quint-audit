@@ -7,44 +7,42 @@ structures, and reports structural findings. No LLM is involved. No
 
 Specifications audited, proofs grafted.
 
-Status: v0.1.0 development. Check ids are the stable contract; check
-outcomes are provisional through v0.x.
+Status: v0.1.0. Check ids, exit codes and the report schema are the stable contract. The check semantics are modelled in Quint and verified with killed mutants. Every check was adversarially reviewed against a 67-spec real corpus. Remaining provisional through v0.x: individual severities and message wording, which may move as the corpus grows.
 
 ## What it does
 
-Quint Studio runs quality checks on the specs it generates, but it cannot
-see hand-written specs. The Quint team has stated there is no conversion
+[Quint Studio](https://quint.sh/product) runs quality checks on the specs it generates, but so far it cannot
+see hand-written specs. The Quint team has stated there is currently no conversion
 path from an existing `.qnt` file into Studio's component shape.
 
 `quint-audit` runs the [Quint LLM
 kit](https://github.com/quint-co/quint-llm-kit) review checklist
 against any existing `.qnt` spec, and adds checks for production
-pitfalls the checklist does not cover. The check names and report rows
-follow that checklist, so the output reads familiar to the Quint
+pitfalls the checklist does not cover.The names of the checks and the rows of the report follow that checklist. The output should read familiarly to the Quint
 community. Findings
 carry spans, severities, suggestions and exit codes, in a human report
-and a stable JSON document, built for CI.
+and a stable JSON document. `quint-audit` has been built for CI.
 
-## Why: the positioning
+## Why it exists
 
 `quint verify` answers "does an invariant break within N steps". It
 cannot ask whether the spec is well built. An action that skips a
 variable, a tautological invariant, a dead branch, a missing witness:
 none of these is a model-checking question. A spec can verify green and
-still be vacuous or unmaintainable. quint-audit asks the build-discipline
+still be vacuous or unmaintainable. `quint-audit` asks the build-discipline
 questions, at parse cost.
 
-The kit's review is a model's judgement on one spec at a time; quint-audit
-is a deterministic checker, and an IR run gives byte-identical
+The Quint LLM kit's review is a model's judgement on one spec at a time; `quint-audit`
+is a deterministic checker. An IR run gives byte-identical
 findings for the same input and flags. Its check semantics are modelled in Quint,
-verified in this repository and exercised by killed mutants; the kit's
-checklist is prose the model interprets. The audit follows the import
+verified in this repository and exercised by killed mutants. The LLM kit's
+checklist is prose the model interprets. `quint-audit` follows the import
 graph, attributes findings to the file that owns each one and
 deduplicates; it runs at parse cost in CI, with exit codes, a JSON
-schema, stable check ids and no model in the loop. The kit's review is
+schema, stable check ids and no model in the loop. The LLM kit's review is
 deeper interactively: it drives the REPL, shows the state at a
 violation, carries the per-action witnesses check and the conversational
-fix loop; quint-audit is the fleet instrument beside it, not a
+fix loop; `quint-audit` is the fleet instrument beside it, not a
 replacement.
 
 |  | `quint verify` | Quint Studio checks | quint-audit | LLM kit review |
@@ -58,7 +56,7 @@ replacement.
 
 ## How it works
 
-1. quint-audit reads the spec bytes. A non-ASCII source is refused with
+1. `quint-audit` reads the spec bytes. A non-ASCII source is refused with
    the first offending byte offset. The source map indices are UTF-16
    code units; a non-ASCII character shifts every later span, so spans
    would stop naming the bytes they report.
@@ -97,7 +95,7 @@ Quint itself is a runtime dependency. Install quint 0.33.1:
 npm i @informalsystems/quint@0.33.1 -g
 ```
 
-quint-audit finds `quint` on PATH, or takes an explicit path with
+`quint-audit` finds `quint` on PATH, or takes an explicit path with
 `--quint /path/to/quint`.
 
 Supported quint version: 0.33.1. The pin exists because the typed decoder
@@ -229,7 +227,7 @@ Differentiator checks
   the question was not asked of that module, and a skipped row is
   never a pass.
 
-### Sampled results, never overclaimed
+### Sampled results, never over-claimed
 
 The run-driving checks sample traces. A violation is conclusive. The
 absence of one is reported as "no counterexample observed in the runs
@@ -430,7 +428,7 @@ gnu.org and byte-verified.
 The AGPL licence governs the linter's own code only. Findings it
 produces and the specs it analyses are not derivative works of the
 linter and are unaffected by its licensing terms - proprietary
-codebases and CI pipelines can run quint-audit with no obligation
+codebases and CI pipelines can run `quint-audit` with no obligation
 beyond the tool itself. The copyleft obligation falls only on those who
 modify and redistribute the linter (or serve a modified version), which
 is the contribution-back mechanism by design.
