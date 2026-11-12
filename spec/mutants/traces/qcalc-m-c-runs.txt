@@ -1,0 +1,38 @@
+
+  qcalc
+    ok r_implies_tautology passed 1 test(s)
+    ok r_or_not_tautology passed 1 test(s)
+    ok r_and_not_contradiction passed 1 test(s)
+    ok r_iff_not_contradiction passed 1 test(s)
+    ok r_or_varies passed 1 test(s)
+    ok r_wrap_varies passed 1 test(s)
+    1) r_eq_identity failed after 1 test(s)
+    2) r_eq_node_identity failed after 1 test(s)
+    ok r_eq_distinct_varies passed 1 test(s)
+    ok r_neq_identity_false passed 1 test(s)
+    ok r_spine_unknown passed 1 test(s)
+    ok r_spine_eq_unknown passed 1 test(s)
+    ok r_spine_refused passed 1 test(s)
+    ok r_sound_true_all_assignments passed 1 test(s)
+    ok r_sound_false_all_assignments passed 1 test(s)
+
+  13 passing (698ms)
+  2 failed
+
+  1) r_eq_identity:
+       Error [QNT508]: Expect condition does not hold true
+        at spec/mutants/qcalc-m-c.qnt:248:23
+        248:   run r_eq_identity = setBody(b_eq_ident).expect(classify(body) == "const-true")
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    Use --seed=0xf7b96a88779af4e5 --match=r_eq_identity to repeat.
+  2) r_eq_node_identity:
+       Error [QNT508]: Expect condition does not hold true
+        at spec/mutants/qcalc-m-c.qnt:249:28
+        249:   run r_eq_node_identity = setBody(b_eq_nodes_ident).expect(classify(body) == "const-true")
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    Use --seed=0x36b803590f6163b --match=r_eq_node_identity to repeat.
+
+
+  Use --verbosity=3 to show executions.
+  Further debug with: quint test --verbosity=3 qcalc-m-c.qnt
+error: Tests failed

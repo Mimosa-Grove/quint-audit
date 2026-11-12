@@ -1,0 +1,40 @@
+# The invariant-to-cell map.
+# One row per i_* invariant in spec/qcalc.qnt, spec/rundisc.qnt and
+# spec/irdecode.qnt. :spec is the file that declares it; :cell is the
+# registered name of the suite cell that mirrors it. The regression cell
+# (test/test_quint_audit.ml, "sync") fails when a row drifts.
+{:invariant "i_exhaustive" :spec "qcalc.qnt" :cell "qcalc i_exhaustive: no refusal on modelled bodies"}
+{:invariant "i_sound_true" :spec "qcalc.qnt" :cell "qcalc i_sound_true: const-true is true everywhere"}
+{:invariant "i_sound_false" :spec "qcalc.qnt" :cell "qcalc i_sound_false: const-false is false everywhere"}
+{:invariant "i_refuse_unknown" :spec "qcalc.qnt" :cell "qcalc i_refuse_unknown: a spine is never a pass"}
+{:invariant "i_eq_identity" :spec "qcalc.qnt" :cell "qcalc i_eq_identity: eq(P,P) is const-true"}
+{:invariant "i_total" :spec "rundisc.qnt" :cell "rundisc i_total: 48-fact table"}
+{:invariant "i_passed_requires_proof" :spec "rundisc.qnt" :cell "rundisc i_passed_requires_proof / i_failed_requires_proof / i_no_verdict / i_timeout: three-state invariants over the fact domain"}
+{:invariant "i_failed_requires_proof" :spec "rundisc.qnt" :cell "rundisc i_passed_requires_proof / i_failed_requires_proof / i_no_verdict / i_timeout: three-state invariants over the fact domain"}
+{:invariant "i_no_verdict" :spec "rundisc.qnt" :cell "rundisc i_passed_requires_proof / i_failed_requires_proof / i_no_verdict / i_timeout: three-state invariants over the fact domain"}
+{:invariant "i_timeout" :spec "rundisc.qnt" :cell "rundisc i_passed_requires_proof / i_failed_requires_proof / i_no_verdict / i_timeout: three-state invariants over the fact domain"}
+{:invariant "i_init_pass_requires_rust" :spec "rundisc.qnt" :cell "rundisc i_init_pass_requires_rust / i_ts_pass_not_evidence / i_init_error_both / i_unpinned_not_evidence: backend x facts"}
+{:invariant "i_ts_pass_not_evidence" :spec "rundisc.qnt" :cell "rundisc i_init_pass_requires_rust / i_ts_pass_not_evidence / i_init_error_both / i_unpinned_not_evidence: backend x facts"}
+{:invariant "i_init_error_both" :spec "rundisc.qnt" :cell "rundisc i_init_pass_requires_rust / i_ts_pass_not_evidence / i_init_error_both / i_unpinned_not_evidence: backend x facts"}
+{:invariant "i_unpinned_not_evidence" :spec "rundisc.qnt" :cell "rundisc i_init_pass_requires_rust / i_ts_pass_not_evidence / i_init_error_both / i_unpinned_not_evidence: backend x facts"}
+{:invariant "i_main_range_is_own_range" :spec "irdecode.qnt" :cell "irdecode i_main_range_is_own_range: main span past own source EXPECTED-REFUSE"}
+{:invariant "i_span_decode_within_own_source" :spec "irdecode.qnt" :cell "irdecode i_span_decode_within_own_source: imported span inside both ranges EXPECTED-DECODE"}
+{:invariant "i_imported_span_uses_own_source" :spec "irdecode.qnt" :cell "irdecode i_imported_span_uses_own_source: imported span past main length EXPECTED-DECODE"}
+{:invariant "i_no_silent_wrong_span" :spec "irdecode.qnt" :cell "irdecode i_no_silent_wrong_span: imported span past own source EXPECTED-REFUSE"}
+{:invariant "i_span_refusal_set" :spec "irdecode.qnt" :cell "irdecode i_span_refusal_set: refusal is exactly the malformed set"}
+{:invariant "i_module_end_is_own_closing_brace" :spec "irdecode.qnt" :cell "irdecode i_module_end_is_own_closing_brace: module end is not a brace"}
+{:invariant "i_imported_module_uses_own_source" :spec "irdecode.qnt" :cell "irdecode i_imported_module_uses_own_source: imported module brace EXPECTED-DECODE"}
+{:invariant "i_no_wrong_source_brace" :spec "irdecode.qnt" :cell "irdecode i_no_wrong_source_brace: module end uses main brace EXPECTED-REFUSE"}
+{:invariant "i_import_instance_evidence" :spec "irdecode.qnt" :cell "irdecode i_import_instance_evidence: import and instance decode as non-subjects EXPECTED-DECODE"}
+{:invariant "i_assume_evidence" :spec "irdecode.qnt" :cell "irdecode i_assume_evidence: assume decodes as a non-subject EXPECTED-DECODE"}
+{:invariant "i_nonsubject_not_in_census" :spec "irdecode.qnt" :cell "irdecode i_nonsubject_not_in_census: const is a non-subject"}
+{:invariant "i_census_is_subject" :spec "irdecode.qnt" :cell "irdecode i_census_is_subject: def is a reporting subject"}
+{:invariant "i_unknown_kind_non_subject" :spec "irdecode.qnt" :cell "irdecode i_unknown_kind_non_subject: unknown kind decodes as a non-subject EXPECTED-DECODE"}
+{:invariant "i_known_kind_decodes" :spec "irdecode.qnt" :cell "irdecode i_known_kind_decodes: every known kind decodes"}
+{:invariant "i_pass_requires_real_binding" :spec "irdecode.qnt" :cell "pipeline i_pass_requires_real_binding / i_no_pass_on_junk: junk-valued state is not an observation"}
+{:invariant "i_no_pass_on_junk" :spec "irdecode.qnt" :cell "pipeline i_pass_requires_real_binding / i_no_pass_on_junk: junk-valued state is not an observation"}
+{:invariant "i_marker_is_not_a_binding" :spec "irdecode.qnt" :cell "pipeline i_marker_is_not_a_binding: state shells are exit 2"}
+{:invariant "i_refused_disclosed" :spec "irdecode.qnt" :cell "pipeline i_refused_disclosed: refused state is disclosed"}
+{:invariant "i_source_map_contract" :spec "irdecode.qnt" :cell "irdecode i_source_map_contract: the eight source-map invariants"}
+{:invariant "i_decl_kind_report_contract" :spec "irdecode.qnt" :cell "irdecode i_decl_kind_report_contract: the declaration and report-health invariants"}
+{:invariant "i_contract" :spec "irdecode.qnt" :cell "irdecode i_contract: both composites"}

@@ -1,0 +1,33 @@
+
+  rundisc
+    ok r_clean_pass passed 1 test(s)
+    ok r_clean_fail passed 1 test(s)
+    1) r_masked_crash_did_not_run failed after 1 test(s)
+    2) r_zero_no_summary_did_not_run failed after 1 test(s)
+    ok r_nonzero_no_summary_did_not_run passed 1 test(s)
+    ok r_timeout_did_not_run passed 1 test(s)
+    ok r_missing_binary_did_not_run passed 1 test(s)
+    ok r_failed_has_verdict passed 1 test(s)
+    ok r_masked_crash_no_verdict passed 1 test(s)
+    ok r_timeout_no_verdict passed 1 test(s)
+
+  8 passing (140ms)
+  2 failed
+
+  1) r_masked_crash_did_not_run:
+       Error [QNT508]: Expect condition does not hold true
+        at spec/mutants/rundisc-m-a.qnt:99:36
+        99:   run r_masked_crash_did_not_run = setFacts(f_masked_crash).expect(classifyRun(facts) == "did-not-run")
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    Use --seed=0xfd240430eb10eebf --match=r_masked_crash_did_not_run to repeat.
+  2) r_zero_no_summary_did_not_run:
+       Error [QNT508]: Expect condition does not hold true
+        at spec/mutants/rundisc-m-a.qnt:100:39
+        100:   run r_zero_no_summary_did_not_run = setFacts(f_zero_no_summary).expect(classifyRun(facts) == "did-not-run")
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    Use --seed=0xf8aabaaf838c0f68 --match=r_zero_no_summary_did_not_run to repeat.
+
+
+  Use --verbosity=3 to show executions.
+  Further debug with: quint test --verbosity=3 rundisc-m-a.qnt
+error: Tests failed

@@ -1,0 +1,24 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: "5.3"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install -g @informalsystems/quint@0.33.1
+      - name: Install dependencies
+        run: opam install . --deps-only --with-test
+      - name: Build
+        run: opam exec -- dune build
+      - name: Test
+        run: opam exec -- dune runtest

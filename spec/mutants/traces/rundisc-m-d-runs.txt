@@ -1,0 +1,37 @@
+
+  rundisc
+    ok r_clean_pass passed 1 test(s)
+    ok r_clean_fail passed 1 test(s)
+    ok r_masked_crash_did_not_run passed 1 test(s)
+    ok r_zero_no_summary_did_not_run passed 1 test(s)
+    ok r_nonzero_no_summary_did_not_run passed 1 test(s)
+    ok r_timeout_did_not_run passed 1 test(s)
+    ok r_missing_binary_did_not_run passed 1 test(s)
+    ok r_failed_has_verdict passed 1 test(s)
+    ok r_masked_crash_no_verdict passed 1 test(s)
+    ok r_timeout_no_verdict passed 1 test(s)
+    ok r_init_rust_pass passed 1 test(s)
+    1) r_init_ts_pass_not_evidence failed after 1 test(s)
+    ok r_init_ts_error_failed passed 1 test(s)
+    2) r_init_unpinned_not_evidence failed after 1 test(s)
+
+  12 passing (297ms)
+  2 failed
+
+  1) r_init_ts_pass_not_evidence:
+       Error [QNT508]: Expect condition does not hold true
+        at spec/mutants/rundisc-m-d.qnt:123:37
+        123:   run r_init_ts_pass_not_evidence = setFacts(f_clean_pass).expect(initVerdict("typescript", facts) == "not-evidence")
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    Use --seed=0x5a42c89b1523594c --match=r_init_ts_pass_not_evidence to repeat.
+  2) r_init_unpinned_not_evidence:
+       Error [QNT508]: Expect condition does not hold true
+        at spec/mutants/rundisc-m-d.qnt:125:38
+        125:   run r_init_unpinned_not_evidence = setFacts(f_clean_pass).expect(initVerdict("", facts) == "not-evidence")
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    Use --seed=0xca8e56c99a145cd9 --match=r_init_unpinned_not_evidence to repeat.
+
+
+  Use --verbosity=3 to show executions.
+  Further debug with: quint test --verbosity=3 spec/mutants/rundisc-m-d.qnt
+error: Tests failed

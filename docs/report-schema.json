@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Mimosa-Grove/quint-audit/blob/main/docs/report-schema.json",
+  "title": "quint-audit machine report",
+  "description": "The report emitted by `quint-audit lint --format=json` and `quint-audit full --format=json`. Field names are fixed. Findings are the single source for both report formats. Stability: check ids are stable for v0.1.0; check outcomes are provisional through v0.x (README). The findings array and summary are byte-identical across IR runs on the same input; parse_ms is a wall-clock field and varies. In `full`, the run-driving checks sample and their seed, sample count and step bound are carried in the report text and in the QL011 sample note.",
+  "type": "object",
+  "required": ["tool", "spec", "quint", "modules", "checks", "findings", "sources", "dedup", "summary", "exit"],
+  "additionalProperties": false,
+  "properties": {
+    "tool": {
+      "type": "object",
+      "required": ["name", "version"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {"const": "quint-audit"},
+        "version": {"type": "string"}
+      }
+    },
+    "spec": {
+      "type": "string",
+      "description": "Resolved absolute path of the analysed specification."
+    },
+    "quint": {
+      "type": "object",
+      "required": ["version", "ir_sha256", "parse_ms"],
+      "additionalProperties": false,
+      "properties": {
+        "version": {"type": "string"},
+        "ir_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "parse_ms": {"type": "integer", "minimum": 0, "description": "Wall-clock parse time. Excluded from the byte-stability guarantee.", "varying": true}
+      }
+    },
+    "modules": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Module names in IR order."
+    },
+    "checks": {
+      "type": "array",
+      "description": "One entry per (module, catalogue check). Every catalogue check appears for every module; a check that did not run is skipped, never omitted.",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "mode", "module", "status", "findings"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string", "pattern": "^(QL|QP)[0-9]{3}$"},
+          "name": {"type": "string"},
+          "mode": {"type": "string", "enum": ["ir", "ir+run", "run", "heur", "not"]},
+          "module": {"type": "string"},
+          "status": {"type": "string", "enum": ["pass", "warn", "fail", "skipped"], "description": "`skipped` means the check did not run for this module: deferred, requires a run, or out of scope for the module (a non-entry module's QL009 row). A check that could not run produces no report at all (exit 2)."},
+          "findings": {"type": "array", "items": {"$ref": "#/$defs/finding"}}
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/finding"},
+      "description": "Every finding once, attributed to the file that owns it. Ordered by source path, then span start, then check id, so the order never depends on module iteration order. A given (check, severity, source, span-start, message) appears at most once."
+    },
+    "sources": {
+      "type": "array",
+      "description": "The findings array grouped by the file that owns each finding, sorted by source path. Every finding appears in exactly one group and the groups carry the same rows, in the same order, as the findings array.",
+      "items": {"$ref": "#/$defs/sourceGroup"}
+    },
+    "dedup": {
+      "type": "object",
+      "description": "Report-assembly dedup accounting. The key is (check, severity, source, span-start, message); the module is not part of it, because one definition can be reached through more than one import path.",
+      "required": ["emitted", "reported", "removed"],
+      "additionalProperties": false,
+      "properties": {
+        "emitted": {"type": "integer", "minimum": 0, "description": "Findings as all checks ran, before dedup."},
+        "reported": {"type": "integer", "minimum": 0, "description": "Findings after dedup; equals the length of the findings array."},
+        "removed": {"type": "integer", "minimum": 0, "description": "emitted minus reported."}
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["fail", "warn", "info", "skipped"],
+      "additionalProperties": false,
+      "properties": {
+        "fail": {"type": "integer", "minimum": 0},
+        "warn": {"type": "integer", "minimum": 0},
+        "info": {"type": "integer", "minimum": 0},
+        "skipped": {"type": "integer", "minimum": 0, "description": "Skipped check rows across all modules: deferred, requires-run, and out-of-scope rows."}
+      }
+    },
+    "exit": {
+      "type": "integer",
+      "enum": [0, 1],
+      "description": "Exit code the process returns. Exit 2 means no report was produced."
+    }
+  },
+  "$defs": {
+    "position": {
+      "type": "object",
+      "required": ["line", "col", "index"],
+      "additionalProperties": false,
+      "properties": {
+        "line": {"type": "integer", "minimum": 1, "description": "1-based line, converted from quint's 0-based map."},
+        "col": {"type": "integer", "minimum": 1, "description": "1-based column, converted from quint's 0-based map."},
+        "index": {"type": "integer", "minimum": 0, "description": "Byte offset from the source map."}
+      }
+    },
+    "sourceGroup": {
+      "type": "object",
+      "required": ["source", "findings"],
+      "additionalProperties": false,
+      "properties": {
+        "source": {"type": "string", "description": "The file the group's findings belong to."},
+        "findings": {"type": "array", "items": {"$ref": "#/$defs/finding"}}
+      }
+    },
+    "finding": {
+      "type": "object",
+      "required": ["check", "severity", "module", "source", "start", "end", "message", "suggestion"],
+      "additionalProperties": false,
+      "properties": {
+        "check": {"type": "string", "pattern": "^(QL|QP)[0-9]{3}$"},
+        "severity": {"type": "string", "enum": ["fail", "warn", "info"]},
+        "module": {"type": "string"},
+        "source": {"type": "string", "description": "The source file the span belongs to. An imported-module finding names the imported file, not the analysed spec."},
+        "start": {"$ref": "#/$defs/position", "description": "Every finding carries a span; a module-level finding carries the module span."},
+        "end": {"$ref": "#/$defs/position"},
+        "message": {"type": "string"},
+        "suggestion": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

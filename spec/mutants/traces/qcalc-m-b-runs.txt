@@ -1,0 +1,32 @@
+
+  qcalc
+    ok r_implies_tautology passed 1 test(s)
+    ok r_or_not_tautology passed 1 test(s)
+    ok r_and_not_contradiction passed 1 test(s)
+    ok r_iff_not_contradiction passed 1 test(s)
+    ok r_or_varies passed 1 test(s)
+    ok r_wrap_varies passed 1 test(s)
+    ok r_eq_identity passed 1 test(s)
+    ok r_eq_node_identity passed 1 test(s)
+    ok r_eq_distinct_varies passed 1 test(s)
+    ok r_neq_identity_false passed 1 test(s)
+    ok r_spine_unknown passed 1 test(s)
+    ok r_spine_eq_unknown passed 1 test(s)
+    1) r_spine_refused failed after 1 test(s)
+    ok r_sound_true_all_assignments passed 1 test(s)
+    ok r_sound_false_all_assignments passed 1 test(s)
+
+  14 passing (662ms)
+  1 failed
+
+  1) r_spine_refused:
+       Error [QNT508]: Expect condition does not hold true
+        at spec/mutants/qcalc-m-b.qnt:251:25
+        251:   run r_spine_refused = setBody(b_spine_and).expect(decision(body) == "refuse")
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    Use --seed=0x6e0a942ece39c4cc --match=r_spine_refused to repeat.
+
+
+  Use --verbosity=3 to show executions.
+  Further debug with: quint test --verbosity=3 qcalc-m-b.qnt
+error: Tests failed

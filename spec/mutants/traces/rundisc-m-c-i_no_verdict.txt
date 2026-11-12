@@ -1,0 +1,18 @@
+An example execution:
+
+[State 0]
+{
+  facts:
+    {
+      emptyOutput: false,
+      failureSummary: false,
+      rc: "nonzero",
+      successSummary: false,
+      timedOut: false
+    }
+}
+
+[violation] Found an issue (46ms at 87 traces/second).
+Use --verbosity=3 to show executions.
+Use --seed=0x38b0448d8bc4aea2 --backend=rust to reproduce.
+error: Invariant violated

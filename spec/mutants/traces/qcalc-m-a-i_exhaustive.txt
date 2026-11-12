@@ -1,0 +1,26 @@
+An example execution:
+
+[State 0]
+{
+  body:
+    {
+      l:
+        {
+          l: { kind: "lit", lit: true, name: "" },
+          op: "wrap",
+          r: { kind: "lit", lit: false, name: "" }
+        },
+      op: "implies",
+      r:
+        {
+          l: { kind: "lit", lit: false, name: "" },
+          op: "wrap",
+          r: { kind: "lit", lit: false, name: "" }
+        }
+    }
+}
+
+[violation] Found an issue (126ms at 32 traces/second).
+Use --verbosity=3 to show executions.
+Use --seed=0x5a27bbad77683eb6 --backend=rust to reproduce.
+error: Invariant violated

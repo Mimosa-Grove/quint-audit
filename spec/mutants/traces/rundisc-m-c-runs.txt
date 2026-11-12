@@ -1,0 +1,33 @@
+
+  rundisc
+    ok r_clean_pass passed 1 test(s)
+    ok r_clean_fail passed 1 test(s)
+    ok r_masked_crash_did_not_run passed 1 test(s)
+    ok r_zero_no_summary_did_not_run passed 1 test(s)
+    ok r_nonzero_no_summary_did_not_run passed 1 test(s)
+    ok r_timeout_did_not_run passed 1 test(s)
+    ok r_missing_binary_did_not_run passed 1 test(s)
+    ok r_failed_has_verdict passed 1 test(s)
+    1) r_masked_crash_no_verdict failed after 1 test(s)
+    2) r_timeout_no_verdict failed after 1 test(s)
+
+  8 passing (252ms)
+  2 failed
+
+  1) r_masked_crash_no_verdict:
+       Error [QNT508]: Expect condition does not hold true
+        at spec/mutants/rundisc-m-c.qnt:104:35
+        104:   run r_masked_crash_no_verdict = setFacts(f_masked_crash).expect(verdictOf(facts) == "none")
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    Use --seed=0xdb7208146c91ae40 --match=r_masked_crash_no_verdict to repeat.
+  2) r_timeout_no_verdict:
+       Error [QNT508]: Expect condition does not hold true
+        at spec/mutants/rundisc-m-c.qnt:105:30
+        105:   run r_timeout_no_verdict = setFacts(f_timeout).expect(verdictOf(facts) == "none")
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    Use --seed=0xdfd0ae74ab342db4 --match=r_timeout_no_verdict to repeat.
+
+
+  Use --verbosity=3 to show executions.
+  Further debug with: quint test --verbosity=3 rundisc-m-c.qnt
+error: Tests failed

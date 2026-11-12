@@ -1,0 +1,14 @@
+(test
+ (name test_quint_audit)
+ (libraries quint_audit unix alcotest qcheck qcheck-alcotest)
+ (deps
+  (source_tree fixtures)
+  ../spec/qcalc.qnt
+  ../spec/rundisc.qnt
+  ../spec/irdecode.qnt
+  ../docs/spec-cell-map.jdn
+  ../README.md
+  ../lib/finding.ml
+  ../bin/quint_audit_cli.ml
+  test_quint_audit.ml
+  ../bin/quint_audit_cli.exe))

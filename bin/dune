@@ -1,0 +1,4 @@
+(executable
+ (name quint_audit_cli)
+ (public_name quint-audit)
+ (libraries quint_audit cmdliner))
