@@ -325,7 +325,7 @@ verdict is deferred (see Scope limits).
   witness presence and dead-witness detection ship in v0.1.0; the
   per-action mapping is deferred to v0.1.1 (see Scope limits).
 - QP004 (a `val` after the module's closing brace): needs a source
-  text scan. Deferred to v1.1.
+  text scan. Deferred to v0.1.1.
 - QP005-QP011: seven invocation, verify and environment properties,
   deferred: they need `quint verify`, the typechecker or the source
   text, not the parse IR. QP003 (forward references) is
