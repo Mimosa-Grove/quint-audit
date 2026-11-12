@@ -7,28 +7,24 @@ structures, and reports structural findings. No LLM is involved. No
 
 Specifications audited, proofs grafted.
 
-**Status: v0.1.0.** Check ids, exit codes and the report schema are the
-stable contract. The check semantics are modelled in Quint and verified
-with killed mutants, and every check was adversarially reviewed against
-a 67-spec real corpus. What stays provisional through v0.x: individual
-severities and message wording, which may move as the corpus grows.
+Status: v0.1.0. Check ids, exit codes and the report schema are the stable contract. The check semantics are modelled in Quint and verified with killed mutants. Every check was adversarially reviewed against a 67-spec real corpus. Remaining provisional through v0.x: individual severities and message wording, which may move as the corpus grows.
 
 ## What it does
 
-Quint Studio runs quality checks on the specs it generates, but it cannot
-see hand-written specs. The Quint team has stated there is no conversion
+[Quint Studio](https://quint.sh/product) runs quality checks on the specs it generates, but so far it cannot
+see hand-written specs. The Quint team has stated there is currently no conversion
 path from an existing `.qnt` file into Studio's component shape.
 
 `quint-audit` runs the [Quint LLM
 kit](https://github.com/quint-co/quint-llm-kit) review checklist
 against any existing `.qnt` spec, and adds checks for production
 pitfalls the checklist does not cover. The names of the checks and the
-rows of the report follow that checklist, so the output reads familiar
-to the Quint community. Findings
+rows of the report follow that checklist, so the output should read
+familiarly to the Quint community. Findings
 carry spans, severities, suggestions and exit codes, in a human report
-and a stable JSON document, built for CI.
+and a stable JSON document. quint-audit has been built for CI.
 
-## Why: the positioning
+## Why it exists
 
 `quint verify` answers "does an invariant break within N steps". It
 cannot ask whether the spec is well built. An action that skips a
@@ -53,7 +49,7 @@ replacement.
 |  | `quint verify` | Quint Studio checks | quint-audit | LLM kit review |
 |---|---|---|---|---|
 | what | bounded model checking via Apalache or TLC | quality review in the Studio app, on the specs it generates | static audit of any existing `.qnt` spec | LLM review of one finished spec |
-| question | does an invariant break within N steps | is the generated model well built | does the spec follow the modelling discipline | the same build-discipline question, read by a model |
+| question | does an invariant break within N steps? | is the generated model well built? | does the spec follow the modelling discipline? | the same build-discipline question, read by a model |
 | input | a typechecked spec | a spec built in Studio | any `.qnt` file | one `.qnt` file |
 | output | counterexample or no-violation-in-bounds | review notes in the editor | findings with spans, severities, exit codes, JSON | a review report with fixes, from model judgement |
 | where | CLI, local or CI | desktop app, GUI and terminal UI | CLI, designed for CI gates | an LLM agent, interactively |
@@ -61,7 +57,7 @@ replacement.
 
 ## How it works
 
-1. quint-audit reads the spec bytes. A non-ASCII source is refused with
+1. `quint-audit` reads the spec bytes. A non-ASCII source is refused with
    the first offending byte offset. The source map indices are UTF-16
    code units; a non-ASCII character shifts every later span, so spans
    would stop naming the bytes they report.
