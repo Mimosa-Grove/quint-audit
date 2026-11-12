@@ -9,6 +9,11 @@ test:
   stage: test
   image: ocaml/opam:debian-12-ocaml-5.3
   before_script:
+    # The runner clones the repo as root and the job runs as the opam
+    # user; git's dubious-ownership guard makes every git call exit 128
+    # in that checkout (the mark-task first-pipeline lesson). opam runs
+    # git ls-files while resolving dependencies, so this comes first.
+    - git config --global --add safe.directory "$CI_PROJECT_DIR"
     - sudo apt-get update -qq
     - sudo apt-get install -y -qq nodejs npm
     - export PATH="$(npm prefix -g)/bin:$PATH"
