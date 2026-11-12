@@ -26,7 +26,7 @@ and a stable JSON document. quint-audit has been built for CI.
 
 ## Why it exists
 
-`quint verify` answers "does an invariant break within N steps". It
+`quint verify` answers "does an invariant break within N steps?". It
 cannot ask whether the spec is well built. An action that skips a
 variable, a tautological invariant, a dead branch, a missing witness:
 none of these is a model-checking question. A spec can verify green and
