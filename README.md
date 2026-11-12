@@ -30,20 +30,20 @@ and a stable JSON document. quint-audit has been built for CI.
 cannot ask whether the spec is well built. An action that skips a
 variable, a tautological invariant, a dead branch, a missing witness:
 none of these is a model-checking question. A spec can verify green and
-still be vacuous or unmaintainable. quint-audit asks the build-discipline
+still be vacuous or unmaintainable. `quint-audit` asks the build-discipline
 questions, at parse cost.
 
 The Quint LLM kit's review is a model's judgement on one spec at a time; quint-audit
 is a deterministic checker, and an IR run gives byte-identical
 findings for the same input and flags. Its check semantics are modelled in Quint,
-verified in this repository and exercised by killed mutants; the kit's
-checklist is prose the model interprets. The audit follows the import
+verified in this repository and exercised by killed mutants. The LLM kit's
+checklist is prose the model interprets. `quint-audit` follows the import
 graph, attributes findings to the file that owns each one and
 deduplicates; it runs at parse cost in CI, with exit codes, a JSON
-schema, stable check ids and no model in the loop. The kit's review is
+schema, stable check ids and no model in the loop. The LLM kit's review is
 deeper interactively: it drives the REPL, shows the state at a
 violation, carries the per-action witnesses check and the conversational
-fix loop; quint-audit is the fleet instrument beside it, not a
+fix loop; `quint-audit` is the fleet instrument beside it, not a
 replacement.
 
 |  | `quint verify` | Quint Studio checks | quint-audit | LLM kit review |
@@ -96,7 +96,7 @@ Quint itself is a runtime dependency. Install quint 0.33.1:
 npm i @informalsystems/quint@0.33.1 -g
 ```
 
-quint-audit finds `quint` on PATH, or takes an explicit path with
+`quint-audit` finds `quint` on PATH, or takes an explicit path with
 `--quint /path/to/quint`.
 
 Supported quint version: 0.33.1. The pin exists because the typed decoder
@@ -228,7 +228,7 @@ Differentiator checks
   the question was not asked of that module, and a skipped row is
   never a pass.
 
-### Sampled results, never overclaimed
+### Sampled results, never over-claimed
 
 The run-driving checks sample traces. A violation is conclusive. The
 absence of one is reported as "no counterexample observed in the runs
@@ -429,7 +429,7 @@ gnu.org and byte-verified.
 The AGPL licence governs the linter's own code only. Findings it
 produces and the specs it analyses are not derivative works of the
 linter and are unaffected by its licensing terms - proprietary
-codebases and CI pipelines can run quint-audit with no obligation
+codebases and CI pipelines can run `quint-audit` with no obligation
 beyond the tool itself. The copyleft obligation falls only on those who
 modify and redistribute the linter (or serve a modified version), which
 is the contribution-back mechanism by design.
