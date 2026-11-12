@@ -7,8 +7,11 @@ structures, and reports structural findings. No LLM is involved. No
 
 Specifications audited, proofs grafted.
 
-Status: v0.1.0 development. Check ids are the stable contract; check
-outcomes are provisional through v0.x.
+**Status: v0.1.0.** Check ids, exit codes and the report schema are the
+stable contract. The check semantics are modelled in Quint and verified
+with killed mutants, and every check was adversarially reviewed against
+a 67-spec real corpus. What stays provisional through v0.x: individual
+severities and message wording, which may move as the corpus grows.
 
 ## What it does
 
@@ -19,9 +22,9 @@ path from an existing `.qnt` file into Studio's component shape.
 `quint-audit` runs the [Quint LLM
 kit](https://github.com/quint-co/quint-llm-kit) review checklist
 against any existing `.qnt` spec, and adds checks for production
-pitfalls the checklist does not cover. The check names and report rows
-follow that checklist, so the output reads familiar to the Quint
-community. Findings
+pitfalls the checklist does not cover. The names of the checks and the
+rows of the report follow that checklist, so the output reads familiar
+to the Quint community. Findings
 carry spans, severities, suggestions and exit codes, in a human report
 and a stable JSON document, built for CI.
 
@@ -34,7 +37,7 @@ none of these is a model-checking question. A spec can verify green and
 still be vacuous or unmaintainable. quint-audit asks the build-discipline
 questions, at parse cost.
 
-The kit's review is a model's judgement on one spec at a time; quint-audit
+The Quint LLM kit's review is a model's judgement on one spec at a time; quint-audit
 is a deterministic checker, and an IR run gives byte-identical
 findings for the same input and flags. Its check semantics are modelled in Quint,
 verified in this repository and exercised by killed mutants; the kit's
@@ -49,11 +52,11 @@ replacement.
 
 |  | `quint verify` | Quint Studio checks | quint-audit | LLM kit review |
 |---|---|---|---|---|
-| what | bounded model checking via Apalache or TLC | quality review, inside the IDE, on specs Studio generates | static audit of any existing `.qnt` spec | LLM review of one finished spec |
+| what | bounded model checking via Apalache or TLC | quality review in the Studio app, on the specs it generates | static audit of any existing `.qnt` spec | LLM review of one finished spec |
 | question | does an invariant break within N steps | is the generated model well built | does the spec follow the modelling discipline | the same build-discipline question, read by a model |
 | input | a typechecked spec | a spec built in Studio | any `.qnt` file | one `.qnt` file |
 | output | counterexample or no-violation-in-bounds | review notes in the editor | findings with spans, severities, exit codes, JSON | a review report with fixes, from model judgement |
-| where | CLI, local or CI | IDE only | CLI, designed for CI gates | an LLM agent, interactively |
+| where | CLI, local or CI | desktop app, GUI and terminal UI | CLI, designed for CI gates | an LLM agent, interactively |
 | cost | minutes to hours per spec | interactive | about the parse time per spec | model tokens, per spec |
 
 ## How it works
