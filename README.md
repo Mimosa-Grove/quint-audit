@@ -5,9 +5,7 @@ existing `.qnt` file, decodes quint's own parse IR into typed OCaml
 structures, and reports structural findings. No LLM is involved. No
 `quint verify` is invoked.
 
-Specifications audited, proofs grafted.
-
-Status: v0.1.0. Check ids, exit codes and the report schema are the stable contract. The check semantics are modelled in Quint and verified with killed mutants. Every check was adversarially reviewed against a 67-spec real corpus. Remaining provisional through v0.x: individual severities and message wording, which may move as the corpus grows.
+Status: v0.1.0. Check ids, exit codes and the report schema are the stable contract. The check semantics are modelled in Quint and verified with killed mutants. Every check was adversarially reviewed against a 67-spec real corpus.
 
 ## What it does
 
