@@ -424,8 +424,7 @@ its warn.
 
 ## Licence
 
-AGPLv3. The full licence text is in [`LICENSE`](LICENSE), taken from
-gnu.org and byte-verified.
+AGPLv3. The full licence text is in [`LICENSE`](LICENSE).
 
 The AGPL licence governs the linter's own code only. Findings it
 produces and the specs it analyses are not derivative works of the
